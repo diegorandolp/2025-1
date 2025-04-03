@@ -3,16 +3,13 @@
 #include <signal.h>
 #include <assert.h>
 #include <unistd.h>
-#include <fcntl.h>
-
 
 static void myHandler (int signum) {
-    printf("Diego");
-    exit(0);
+    printf("In myHandler with argument %d\n", signum);
 }
 
 int main(){
-
+    unsigned long int i = 0;
 
     int iRet;
     struct sigaction sAction;
@@ -20,14 +17,17 @@ int main(){
     sAction.sa_handler = myHandler;
 
     sigemptyset(&sAction.sa_mask);
-    iRet = sigaction(SIGALRM, &sAction, NULL);
-
+    for (int i = 0; i <= 64; i++) {
+        if (i == 32 || i == 33) {
+            continue;
+        }
+        iRet = sigaction(i, &sAction, NULL);
+    }
     assert(iRet == 0);
-    int alrm = alarm(6);
 
     while(1){
       sleep(1);
     }
-
     return 0;
+
 }

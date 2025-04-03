@@ -34,7 +34,7 @@ def chess():
     cv.imshow('image', img)
     cv.waitKey(0)
     cv.destroyAllWindows()
-
+# pending
 def circle(n, radius):
     img = np.zeros((n, n, 3))
 
@@ -52,28 +52,32 @@ def circle(n, radius):
 def ev(real, im):
     c = complex(real, im)
     z = complex(0, 0)
-    MAX_VALUE = 1
+    MAX_VALUE = 2
     for step in range(10**3):
         if abs(z) > MAX_VALUE:
-            return 42
-        z= z*z + c
+            return [step] * 3
+        try:
+            z= z*z + c
+        except:
+            z = c
 
-    return 255
-
-
+    return [255, 255, 255]
 
 
 def fractal(n):
-    img = np.zeros((n, n, 3))
+    x_dom = np.linspace(-2, 2, n)
+    y_dom = np.linspace(-2, 2, n)
+    img = []
 
-    for i in range(n):
-        for j in range(n):
-            for k in range(3):
-                img[i, j, k] = ev(i, j)
+    for i in y_dom:
+        row = []
+        for j in x_dom:
+                row.append(ev(i, j))
+        img.append(row)
 
 
-
-    cv.imshow('image', img)
+    img = np.array(img)
+    cv.imshow('image', img.astype(np.uint8))
     cv.waitKey(0)
     cv.destroyAllWindows()
 
@@ -101,5 +105,5 @@ def animation1():
     cv.waitKey(0)
 # chess()
 # circle(100, 30)
-# fractal(3000)
+fractal(300)
 # animation1()
