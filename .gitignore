@@ -1,3 +1,4 @@
 .idea/
 *.pdf
 Operativos/selfie-labs-2025
+cmake-build-debug/
