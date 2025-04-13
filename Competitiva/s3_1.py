@@ -16,7 +16,7 @@ def get_ints():
 def solve(let):
     up_lim = 100
     dw_lim = -100
-    for j in range(dw_lim, up_lim):
+    for j in range(dw_lim, up_lim + 1):
         for k in range(j+1, up_lim + 1):
             x = j
             y = k
