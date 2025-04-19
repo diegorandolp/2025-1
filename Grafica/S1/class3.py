@@ -5,7 +5,7 @@ import numpy as np
 import cv2 as cv
 
 def chess():
-    cell = 10
+    cell = 15
     width = 500
     height = 500
 
@@ -103,7 +103,7 @@ def animation1():
         sleep(1)
 
     cv.waitKey(0)
-# chess()
+chess()
 # circle(100, 30)
-fractal(300)
+# fractal(300)
 # animation1()

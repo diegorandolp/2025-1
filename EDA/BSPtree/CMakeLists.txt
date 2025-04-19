@@ -17,14 +17,14 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 # Archivos fuente
 set(SOURCES
-    main.cpp
+        main.cpp
 )
 
 # Crear ejecutable
 add_executable(${PROJECT_NAME} ${SOURCES})
 
 # Incluir directorio actual para los headers
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(${PROJECT_NAME} PRIVATE .)
 
 # Opciones de compilación por sistema
 if(MSVC)

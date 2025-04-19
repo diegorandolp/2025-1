@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Filter Comparison</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #540a40;
+            --accent-color: #e74c3c;
+            --light-bg: #f8f9fa;
+            --border-color: #ddd;
+            --text-color: #333;
+            --header-bg: #4b0c56;
+            --header-text: #fff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: #f5f5f5;
+            padding: 20px;
+            max-width: 100%;
+            overflow-x: auto;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+
+        header {
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        h1 {
+            color: var(--secondary-color);
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+
+        .filters-table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            table-layout: fixed;
+            background-color: #fff;
+            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 2px;
+            text-align: center;
+            vertical-align: middle;
+            position: relative;
+        }
+
+        th {
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            transition: transform 0.3s ease;
+            border: 1px solid #eee;
+        }
+
+
+        .filter-size {
+            font-size: 0.8rem;
+            color: #777;
+            display: block;
+            margin-top: 5px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Filters Comparison</h1>
+
+        </header>
+
+        </div>
+
+        <div class="filters-table-container">
+            <table>
+                <thead>
+                <tr>
+                    <th>Filter</th>
+                    <th>Original</th>
+                    <th>3×3</th>
+                    <th>5×5</th>
+                    <th>7×7</th>
+                    <th>9×9</th>
+                    <th>11×11</th>
+                    <th>13×13</th>
+                    <th>15×15</th>
+                    <th>17×17</th>
+                    <th>19×19</th>
+                    <th>21×21</th>
+                    <th>23×23</th>
+                    <th>25×25</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="filter-row-box">
+                    <th>Box-grayscale</th>
+                    <td><img src="original_gray.png" alt="Original grayscale"></td>
+                    <td>
+                        <img src="box_gray_3.png" alt="box grayscale 3×3">
+                        <span class="filter-size">3×3</span>
+                    </td>
+                    <td>
+                        <img src="box_gray_5.png" alt="box grayscale 5×5">
+                        <span class="filter-size">5×5</span>
+                    </td>
+                    <td>
+                        <img src="box_gray_7.png" alt="box grayscale 7×7">
+                        <span class="filter-size">7×7</span>
+                    </td>
+                    <td>
+                        <img src="box_gray_9.png" alt="box grayscale 9×9">
+                        <span class="filter-size">9×9</span>
+                    </td>
+                    <td>
+                        <img src="box_gray_11.png" alt="box grayscale 11×11">
+                        <span class="filter-size">11×11</span>
+                    </td>
+                    <td>
+                        <img src="box_gray_13.png" alt="box grayscale 13×13">
+                        <span class="filter-size">13×13</span>
+                    </td>
+                    <td>
+                        <img src="box_gray_15.png" alt="box grayscale 15×15">
+                        <span class="filter-size">15×15</span>
+                    </td>
+                    <td>
+                        <img src="box_gray_17.png" alt="box grayscale 17×17">
+                        <span class="filter-size">17×17</span>
+                    </td>
+                    <td>
+                        <img src="box_gray_19.png" alt="box grayscale 19×19">
+                        <span class="filter-size">19×19</span>
+                    </td>
+                    <td>
+                        <img src="box_gray_21.png" alt="box grayscale 21×21">
+                        <span class="filter-size">21×21</span>
+                    </td>
+                    <td>
+                        <img src="box_gray_23.png" alt="box grayscale 23×23">
+                        <span class="filter-size">23×23</span>
+                    </td>
+                    <td>
+                        <img src="box_gray_25.png" alt="box grayscale 25×25">
+                        <span class="filter-size">25×25</span>
+                    </td>
+                </tr>
+                <!-- box-rgb -->
+                <tr class="filter-row-box">
+                    <th>Box-rgb</th>
+                    <td><img src="original.png" alt="Original"></td>
+                    <td>
+                        <img src="box_3.png" alt="box rgb 3×3">
+                        <span class="filter-size">3×3</span>
+                    </td>
+                    <td>
+                        <img src="box_5.png" alt="box rgb 5×5">
+                        <span class="filter-size">5×5</span>
+                    </td>
+                    <td>
+                        <img src="box_7.png" alt="box rgb 7×7">
+                        <span class="filter-size">7×7</span>
+                    </td>
+                    <td>
+                        <img src="box_9.png" alt="box rgb 9×9">
+                        <span class="filter-size">9×9</span>
+                    </td>
+                    <td>
+                        <img src="box_11.png" alt="box rgb 11×11">
+                        <span class="filter-size">11×11</span>
+                    </td>
+                    <td>
+                        <img src="box_13.png" alt="box rgb 13×13">
+                        <span class="filter-size">13×13</span>
+                    </td>
+                    <td>
+                        <img src="box_15.png" alt="box rgb 15×15">
+                        <span class="filter-size">15×15</span>
+                    </td>
+                    <td>
+                        <img src="box_17.png" alt="box rgb 17×17">
+                        <span class="filter-size">17×17</span>
+                    </td>
+                    <td>
+                        <img src="box_19.png" alt="box rgb 19×19">
+                        <span class="filter-size">19×19</span>
+                    </td>
+                    <td>
+                        <img src="box_21.png" alt="box rgb 21×21">
+                        <span class="filter-size">21×21</span>
+                    </td>
+                    <td>
+                        <img src="box_23.png" alt="box rgb 23×23">
+                        <span class="filter-size">23×23</span>
+                    </td>
+                    <td>
+                        <img src="box_25.png" alt="box rgb 25×25">
+                        <span class="filter-size">25×25</span>
+                    </td>
+                </tr>
+                <!-- bartlett-rgb -->
+                <tr class="filter-row-bartlett">
+                    <th>Bartlett-rgb</th>
+                    <td><img src="original.png" alt="Original"></td>
+                    <td>
+                        <img src="bartlett_3.png" alt="bartlett rgb 3×3">
+                        <span class="filter-size">3×3</span>
+                    </td>
+                    <td>
+                        <img src="bartlett_5.png" alt="bartlett rgb 5×5">
+                        <span class="filter-size">5×5</span>
+                    </td>
+                    <td>
+                        <img src="bartlett_7.png" alt="bartlett rgb 7×7">
+                        <span class="filter-size">7×7</span>
+                    </td>
+                    <td>
+                        <img src="bartlett_9.png" alt="bartlett rgb 9×9">
+                        <span class="filter-size">9×9</span>
+                    </td>
+                    <td>
+                        <img src="bartlett_11.png" alt="bartlett rgb 11×11">
+                        <span class="filter-size">11×11</span>
+                    </td>
+                    <td>
+                        <img src="bartlett_13.png" alt="bartlett rgb 13×13">
+                        <span class="filter-size">13×13</span>
+                    </td>
+                    <td>
+                        <img src="bartlett_15.png" alt="bartlett rgb 15×15">
+                        <span class="filter-size">15×15</span>
+                    </td>
+                    <td>
+                        <img src="bartlett_17.png" alt="bartlett rgb 17×17">
+                        <span class="filter-size">17×17</span>
+                    </td>
+                    <td>
+                        <img src="bartlett_19.png" alt="bartlett rgb 19×19">
+                        <span class="filter-size">19×19</span>
+                    </td>
+                    <td>
+                        <img src="bartlett_21.png" alt="bartlett rgb 21×21">
+                        <span class="filter-size">21×21</span>
+                    </td>
+                    <td>
+                        <img src="bartlett_23.png" alt="bartlett rgb 23×23">
+                        <span class="filter-size">23×23</span>
+                    </td>
+                    <td>
+                        <img src="bartlett_25.png" alt="bartlett rgb 25×25">
+                        <span class="filter-size">25×25</span>
+                    </td>
+                </tr>
+                <!-- bartlett-grayscale -->
+                <tr class="filter-row-bartlett">
+                    <th>Bartlett-grayscale</th>
+                    <td><img src="original_gray.png" alt="Original grayscale"></td>
+                    <td>
+                        <img src="bartlett_gray_3.png" alt="bartlett grayscale 3×3">
+                        <span class="filter-size">3×3</span>
+                    </td>
+                    <td>
+                        <img src="bartlett_gray_5.png" alt="bartlett grayscale 5×5">
+                        <span class="filter-size">5×5</span>
+                    </td>
+                    <td>
+                        <img src="bartlett_gray_7.png" alt="bartlett grayscale 7×7">
+                        <span class="filter-size">7×7</span>
+                    </td>
+                    <td>
+                        <img src="bartlett_gray_9.png" alt="bartlett grayscale 9×9">
+                        <span class="filter-size">9×9</span>
+                    </td>
+                    <td>
+                        <img src="bartlett_gray_11.png" alt="bartlett grayscale 11×11">
+                        <span class="filter-size">11×11</span>
+                    </td>
+                    <td>
+                        <img src="bartlett_gray_13.png" alt="bartlett grayscale 13×13">
+                        <span class="filter-size">13×13</span>
+                    </td>
+                    <td>
+                        <img src="bartlett_gray_15.png" alt="bartlett grayscale 15×15">
+                        <span class="filter-size">15×15</span>
+                    </td>
+                    <td>
+                        <img src="bartlett_gray_17.png" alt="bartlett grayscale 17×17">
+                        <span class="filter-size">17×17</span>
+                    </td>
+                    <td>
+                        <img src="bartlett_gray_19.png" alt="bartlett grayscale 19×19">
+                        <span class="filter-size">19×19</span>
+                    </td>
+                    <td>
+                        <img src="bartlett_gray_21.png" alt="bartlett grayscale 21×21">
+                        <span class="filter-size">21×21</span>
+                    </td>
+                    <td>
+                        <img src="bartlett_gray_23.png" alt="bartlett grayscale 23×23">
+                        <span class="filter-size">23×23</span>
+                    </td>
+                    <td>
+                        <img src="bartlett_gray_25.png" alt="bartlett grayscale 25×25">
+                        <span class="filter-size">25×25</span>
+                    </td>
+                </tr>
+                <!-- gaussian-rgb -->
+                <tr class="filter-row-gaussian">
+                    <th>Gaussian-rgb</th>
+                    <td><img src="original.png" alt="Original"></td>
+                    <td>
+                        <img src="gaussian_3.png" alt="gaussian rgb 3×3">
+                        <span class="filter-size">3×3</span>
+                    </td>
+                    <td>
+                        <img src="gaussian_5.png" alt="gaussian rgb 5×5">
+                        <span class="filter-size">5×5</span>
+                    </td>
+                    <td>
+                        <img src="gaussian_7.png" alt="gaussian rgb 7×7">
+                        <span class="filter-size">7×7</span>
+                    </td>
+                    <td>
+                        <img src="gaussian_9.png" alt="gaussian rgb 9×9">
+                        <span class="filter-size">9×9</span>
+                    </td>
+                    <td>
+                        <img src="gaussian_11.png" alt="gaussian rgb 11×11">
+                        <span class="filter-size">11×11</span>
+                    </td>
+                    <td>
+                        <img src="gaussian_13.png" alt="gaussian rgb 13×13">
+                        <span class="filter-size">13×13</span>
+                    </td>
+                    <td>
+                        <img src="gaussian_15.png" alt="gaussian rgb 15×15">
+                        <span class="filter-size">15×15</span>
+                    </td>
+                    <td>
+                        <img src="gaussian_17.png" alt="gaussian rgb 17×17">
+                        <span class="filter-size">17×17</span>
+                    </td>
+                    <td>
+                        <img src="gaussian_19.png" alt="gaussian rgb 19×19">
+                        <span class="filter-size">19×19</span>
+                    </td>
+                    <td>
+                        <img src="gaussian_21.png" alt="gaussian rgb 21×21">
+                        <span class="filter-size">21×21</span>
+                    </td>
+                    <td>
+                        <img src="gaussian_23.png" alt="gaussian rgb 23×23">
+                        <span class="filter-size">23×23</span>
+                    </td>
+                    <td>
+                        <img src="gaussian_25.png" alt="gaussian rgb 25×25">
+                        <span class="filter-size">25×25</span>
+                    </td>
+                </tr>
+                <!-- gaussian-grayscale -->
+                <tr class="filter-row-gaussian">
+                    <th>Gaussian-grayscale</th>
+                    <td><img src="original_gray.png" alt="Original grayscale"></td>
+                    <td>
+                        <img src="gaussian_gray_3.png" alt="gaussian grayscale 3×3">
+                        <span class="filter-size">3×3</span>
+                    </td>
+                    <td>
+                        <img src="gaussian_gray_5.png" alt="gaussian grayscale 5×5">
+                        <span class="filter-size">5×5</span>
+                    </td>
+                    <td>
+                        <img src="gaussian_gray_7.png" alt="gaussian grayscale 7×7">
+                        <span class="filter-size">7×7</span>
+                    </td>
+                    <td>
+                        <img src="gaussian_gray_9.png" alt="gaussian grayscale 9×9">
+                        <span class="filter-size">9×9</span>
+                    </td>
+                    <td>
+                        <img src="gaussian_gray_11.png" alt="gaussian grayscale 11×11">
+                        <span class="filter-size">11×11</span>
+                    </td>
+                    <td>
+                        <img src="gaussian_gray_13.png" alt="gaussian grayscale 13×13">
+                        <span class="filter-size">13×13</span>
+                    </td>
+                    <td>
+                        <img src="gaussian_gray_15.png" alt="gaussian grayscale 15×15">
+                        <span class="filter-size">15×15</span>
+                    </td>
+                    <td>
+                        <img src="gaussian_gray_17.png" alt="gaussian grayscale 17×17">
+                        <span class="filter-size">17×17</span>
+                    </td>
+                    <td>
+                        <img src="gaussian_gray_19.png" alt="gaussian grayscale 19×19">
+                        <span class="filter-size">19×19</span>
+                    </td>
+                    <td>
+                        <img src="gaussian_gray_21.png" alt="gaussian grayscale 21×21">
+                        <span class="filter-size">21×21</span>
+                    </td>
+                    <td>
+                        <img src="gaussian_gray_23.png" alt="gaussian grayscale 23×23">
+                        <span class="filter-size">23×23</span>
+                    </td>
+                    <td>
+                        <img src="gaussian_gray_25.png" alt="gaussian grayscale 25×25">
+                        <span class="filter-size">25×25</span>
+                    </td>
+                </tr>
+                <!-- laplacian-rgb -->
+                <tr class="filter-row-laplacian">
+                    <th>Laplacian-rgb</th>
+                    <td><img src="original.png" alt="Original"></td>
+                    <td>
+                        <img src="laplacian_3.png" alt="laplacian rgb 3×3">
+                        <span class="filter-size">3×3</span>
+                    </td>
+                    <td>
+                        <img src="laplacian_5.png" alt="laplacian rgb 5×5">
+                        <span class="filter-size">5×5</span>
+                    </td>
+                </tr>
+                <!-- laplacian-grayscale -->
+                <tr class="filter-row-laplacian">
+                    <th>Laplacian-grayscale</th>
+                    <td><img src="original_gray.png" alt="Original grayscale"></td>
+                    <td>
+                        <img src="laplacian_gray_3.png" alt="laplacian grayscale 3×3">
+                        <span class="filter-size">3×3</span>
+                    </td>
+                    <td>
+                        <img src="laplacian_gray_5.png" alt="laplacian grayscale 5×5">
+                        <span class="filter-size">5×5</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+</body>

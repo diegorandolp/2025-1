@@ -59,13 +59,13 @@ img = cv.imread('green.jpg')
 height, width, dim = img.shape
 cv.imshow('image0', img)
 
-# grises(img, new_scale)
+grises(img, new_scale)
 
 # new_scale_section= [ [[255, 53, 32], [0, 255, 0]], [[0, 255, 0], [0, 0, 255]] ]
 #
 # random_sections(img, new_scale_section)
 
-src_image = cv.imread('image2.jpg')
-src_image = cv.resize(src_image, (width, height))
-
-scale_img(img, src_image, 1)
+# src_image = cv.imread('image2.jpg')
+# src_image = cv.resize(src_image, (width, height))
+#
+# scale_img(img, src_image, 1)

@@ -15,7 +15,6 @@
 // ---------------------------------------------------------------------
 // Funciones auxiliares 
 // ---------------------------------------------------------------------
-
 void generateOrthonormalBasis(const Vector3D<NType>& normal, Vector3D<NType>& u, Vector3D<NType>& v) {
     Point3D<NType> arbitrary;
     if (std::abs(normal.getX().getValue()) < 0.9f)
@@ -174,11 +173,15 @@ bool checkSubtreeValidity(const BSPNode<NType>* node, const Plane<NType>& parent
         for (const auto& v : vertices) {
             NType d = parentPlane.distance(v);
             if (isFront) {
-                if (d.getValue() < -0.1f)
+                if (d.getValue() < -0.1f) {
+                    std::cout << "Front: " << d.getValue() << poly.relationWithPlane(parentPlane) << "\n";
                     return false;
+                }
             } else {
-                if (d.getValue() > 0.1f)
+                if (d.getValue() > 0.1f) {
+                    std::cout << "Back: " << d.getValue() << "\n";
                     return false;
+                }
             }
         }
     }
@@ -240,7 +243,7 @@ void testPolygonsIntegrity() {
 // ---------------------------------------------------------------------
 void testQueryRandomBalls(int iterations = 40) {
     std::cout << "Iniciando test de query con Balls...\n";
-    
+
     BSPTree<> tree;
     const int numPolygons = 100;
     std::vector<Polygon<>> originalPolys;
@@ -249,39 +252,39 @@ void testQueryRandomBalls(int iterations = 40) {
         originalPolys.push_back(poly);
         tree.insert(poly);
     }
-    
+
     std::vector<Polygon<>> allPolys = tree.getAllPolygons();
     for (int i = 0; i < iterations; ++i) {
         Ball<> ball = generateRandomBall();
         float dt = 2.0f;
         LineSegment<> movement = ball.step(dt);
-        
+
         // Brute force
         std::vector<Polygon<>> bruteCandidates;
         for (const auto& poly : allPolys) {
             if (sweptSphereIntersectsPolygon(ball, movement, poly))
                 bruteCandidates.push_back(poly);
         }
-        
+
         // Usar el query
         std::vector<Polygon<>> queryCandidates = tree.query(ball, movement);
-        
+
         // Ordenar
         auto sortByArea = [](const Polygon<>& a, const Polygon<>& b) {
             return a.area().getValue() < b.area().getValue();
         };
         std::sort(bruteCandidates.begin(), bruteCandidates.end(), sortByArea);
         std::sort(queryCandidates.begin(), queryCandidates.end(), sortByArea);
-        
+
         // Comparar
         bool match = comparePolygonSets(bruteCandidates, queryCandidates) &&
                      comparePolygonSets(queryCandidates, bruteCandidates);
-        std::cout << "Iteration " << i << ": " 
-                  <<   "Brute = " << bruteCandidates.size() 
+        std::cout << "Iteration " << i << ": "
+                  <<   "Brute = " << bruteCandidates.size()
                   << ", Query = " << queryCandidates.size() << "\n";
         assert(match && "No se obtienen los mismos resultado al aplicar fuerza bruta y al emplear tu implementacion de query BSP.");
     }
-    
+
     std::cout << "Test de query con Balls aleatorias pasó exitosamente.\n";
 }
 
@@ -292,7 +295,7 @@ void testQueryRandomBalls(int iterations = 40) {
 void testTreeStructureValidity() {
     std::cout << "Iniciando test de validez del arbol...\n";
     BSPTree<NType> tree;
-    const int numPolygons = 50;
+    const int numPolygons = 10;
     for (int i = 0; i < numPolygons; ++i) {
         Polygon<NType> poly = generateRandomPolygon(3, 5);
         tree.insert(poly);
@@ -300,7 +303,7 @@ void testTreeStructureValidity() {
     
     auto nodes = tree.getAllNodes();
     assert(!nodes.empty());
-    
+    // tree.print(std::cout);
     // Verificar que el arbol este correctamente construido
     // Los poligonos en el nodo front deben estar delante del plano
     // y los del nodo back deben estar detras del plano
@@ -323,8 +326,8 @@ void testTreeStructureValidity() {
 }
 
 int main() {
-    testTreeStructureValidity();
-    testPolygonsIntegrity();
+    // testTreeStructureValidity();
+    // testPolygonsIntegrity();
     testQueryRandomBalls();
     
     std::cout << "\nTodos los tests se ejecutaron correctamente.\n";

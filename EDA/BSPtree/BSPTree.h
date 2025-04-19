@@ -7,6 +7,14 @@
 #include "Plane.h"
 #include "Ball.h"
 
+#if __cplusplus < 201402L
+namespace std {
+    template<typename T, typename... Args>
+    unique_ptr<T> make_unique(Args&&... args) {
+        return unique_ptr<T>(new T(std::forward<Args>(args)...));
+    }
+}
+#endif
 // Forward declarations
 template <typename T>
 class BSPNode;
@@ -36,10 +44,79 @@ public:
     const BSPNode<T>* getFront() const { return front_.get(); }
     const BSPNode<T>*  getBack() const { return  back_.get(); }
 
-    void insert(const Polygon<T>& polygon);
+    void insert(const Polygon<T>& polygon) {
+        // base
+        if (polygons_.empty()) {
+            polygons_.push_back(polygon);
+            partition_ = polygon.getPlane();
+            front_ = nullptr;
+            back_ = nullptr;
+            return;
+        }
+
+        RelationType sit = polygon.relationWithPlane(partition_);
+        // std::cout << sit << std::endl;
+        // recursive
+        if (sit == IN_FRONT) {
+            if (front_.get() == nullptr) {
+                front_ = std::make_unique<BSPNode<T>>();
+            }
+            front_->insert(polygon);
+            return;
+        } else if (sit == BEHIND) {
+            if (back_.get() == nullptr) {
+                back_ = std::make_unique<BSPNode<T>>();
+
+            }
+            back_->insert(polygon);
+            return;
+        } else if (sit == COINCIDENT) {
+            polygons_.push_back(polygon);
+            return;
+        } else {
+            auto [back, front] = polygon.split(partition_);
+            // std::cout  << back << front << std::endl;
+            if (front_.get() == nullptr) {
+                front_ = std::make_unique<BSPNode<T>>();
+            }
+            if (back_.get() == nullptr) {
+                back_ = std::make_unique<BSPNode<T>>();
+            }
+            // insert both sides
+            front_->insert(front);
+            back_->insert(back);
+            return;
+        }
+
+    }
 
     // Método de consulta: recolecta en 'results' los polígonos que pueden colisionar con la Ball.
-    void query(const Ball<T>& ball, const LineSegment<T>& movement, std::vector<Polygon<T>>& results) const;
+    void query(const Ball<T>& ball, const LineSegment<T>& movement, std::vector<Polygon<T>>& results) const {
+       auto d0 = partition_.distance(movement.getP1());
+       auto d1 = partition_.distance(movement.getP2());
+       auto r = ball.getRadius();
+       // both point in the same side of the plane
+       if (d0 > r && d1 > r) {
+           if (front_)
+               front_->query(ball, movement, results);
+           return;
+       }
+       if (d0 < -r && d1 < -r) {
+           if (back_)
+               back_->query(ball, movement, results);
+           return;
+       }
+       // radius invadeo other side
+       for (auto it: polygons_) {
+           //std::cout << it<< std:: endl;
+           results.push_back(it);
+       }
+       // search both sides
+       if (front_)
+           front_->query(ball, movement, results);
+       if (back_)
+           back_->query(ball, movement, results);
+    }
     
     // Print
     void print(std::ostream& os, int indent = 0) const{
@@ -113,10 +190,44 @@ public:
     BSPTree() : root_(nullptr) {}
     ~BSPTree() = default;
 
-    void insert(const Polygon<T>& polygon);
+    void insert(const Polygon<T>& polygon){
+        if (!root_) {
+            root_ = std::make_unique<BSPNode<T>>();
+            root_->insert(polygon);
+            return;
+        }
+        root_->insert(polygon);
+        return;
+
+    }
     
     // Devuelve los polígonos candidatos a colisión con la Ball.
-    std::vector<Polygon<T>> query(const Ball<T>& ball, const LineSegment<T>& movement) const;
+    std::vector<Polygon<T>> query(const Ball<T>& ball, const LineSegment<T>& movement) const{
+        std::vector<Polygon<T>> results;
+        std::vector<Polygon<T>> filter;
+        if (root_) {
+            root_->query(ball, movement, results);
+        }
+
+        for (auto it: results) {
+            // get intersection point
+            Plane<NType> plane = it.getPlane();
+            NType d0 = plane.distance(movement.getP1());
+            NType d1 = plane.distance(movement.getP2());
+            NType denom = d0 - d1;
+            if (denom == 0)
+                continue;
+            NType t = d0 / denom;
+            if (t < NType(0) || t > NType(1))
+                continue;
+
+            Point3D<NType> intersection = movement.getP1() + (movement.getP2() - movement.getP1()) * t;
+            if (it.contains(intersection)) {
+                filter.push_back(it);
+            }
+        }
+        return filter;
+    }
     
     // Print
     void print(std::ostream& os) const{

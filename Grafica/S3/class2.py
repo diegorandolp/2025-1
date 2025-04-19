@@ -53,7 +53,7 @@ img = cv.imread('../S2/image2.jpg')
 size_kernel = 5
 
 # Box filter
-# kernel = np.array([[1/(size_kernel**2)]*size_kernel for i in range(size_kernel)])
+kernel = np.array([[1/(size_kernel**2)]*size_kernel for i in range(size_kernel)])
 
 # Gaussian
 # kernel = [[1, 2, 1], [2, 4, 2], [1, 2, 1]]
@@ -73,11 +73,11 @@ size_kernel = 5
 #     for el2 in kernel_id:
 
 # Laplacian
-kernel = [[1, 1, 1], [1, -8, 1], [1, 1, 1]]
+# kernel = [[1, 1, 1], [1, -8, 1], [1, 1, 1]]
 
-for i in range(size_kernel):
-    for j in range(size_kernel):
-        kernel[i][j] = kernel[i][j] / 25
-kernel = np.array(kernel)
+# for i in range(size_kernel):
+#     for j in range(size_kernel):
+#         kernel[i][j] = kernel[i][j] / 25
+# kernel = np.array(kernel)
 
 filter(kernel, img, mod="")
